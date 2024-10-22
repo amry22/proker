@@ -7,6 +7,7 @@ use App\Filament\Resources\DataProkerResource\RelationManagers;
 use App\Models\DataProker;
 use Faker\Provider\ar_EG\Text;
 use Filament\Forms;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -17,6 +18,7 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
 
@@ -40,28 +42,37 @@ class DataProkerResource extends Resource
         }
         
         return $form
+        // ->relationship('division')
             ->schema([
-                Textarea::make('name')->label('Program Kerja')->required()
-                ->columnSpan([
-                    'sm' => 2,
-                    'xl' => 3,
-                    '2xl' => 4,
-                ]),
-                TextInput::make('division')->label('Bidang')->placeholder(Auth::user()->division->name)->readOnly(),
-                TextInput::make('department')->label('Departemen')->visible(Auth::user()->department_id != null)->placeholder($departmenName)->readOnly(),
-                // TextInput::make('departement')->label('Departemen')->default(Auth::user()->division->name)->readOnly()->visible(Auth::user()->department_id != null),
-                Select::make('year')
-                    ->native(false)
-                    ->default(now()->format('Y'))
-                    ->options([
-                        '2020' => '2020',
-                        '2021' => '2021',
-                        '2022' => '2022',
-                        '2023' => '2023',
-                        '2024' => '2024',
-                        '2025' => '2025',
-                        '2026' => '2026',
-                    ])->label('Tahun'),
+                Section::make([
+                    Textarea::make('name')->label('Program Kerja')->required()
+                        ->columnSpan([
+                            'sm' => 2,
+                            'xl' => 3,
+                            '2xl' => 4,
+                    ]),
+                    TextInput::make('division_edit')->label('Bidang')->placeholder(fn (Model $record): string => $record->division->name)->readOnly()->hidden(fn (string $operation): bool => $operation === 'create'),
+                    TextInput::make('department_edit')->label('Departemen')->placeholder(fn (Model $record): string => $record->department->name)->readOnly()->hidden(fn (string $operation): bool => $operation === 'create'),
+                    TextInput::make('division')->label('Bidang')->placeholder(Auth::user()->division->name)->readOnly()->hidden(fn (string $operation): bool => $operation === 'edit'),
+                    TextInput::make('department')->label('Departemen')->visible(Auth::user()->department_id != null)->placeholder($departmenName)->readOnly()->hidden(fn (string $operation): bool => $operation === 'edit'),
+                    // TextInput::make('departement')->label('Departemen')->default(Auth::user()->division->name)->readOnly()->visible(Auth::user()->department_id != null),
+                    Select::make('year')
+                        ->native(false)
+                        ->default(now()->format('Y'))
+                        ->options([
+                            '2020' => '2020',
+                            '2021' => '2021',
+                            '2022' => '2022',
+                            '2023' => '2023',
+                            '2024' => '2024',
+                            '2025' => '2025',
+                            '2026' => '2026',
+                        ])->label('Tahun'),
+                ])->columns([
+                    'md' => 2,
+                    'lg' => 3,
+                ])
+                
 
                 // Toggle::make('is_acc')->label('Acc Program'),
             ]);
@@ -80,7 +91,8 @@ class DataProkerResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->visible(fn (Model $record): string => $record->is_acc != 1 && Auth::user()->role_id > 2 ),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -102,6 +114,7 @@ class DataProkerResource extends Resource
             'index' => Pages\ListDataProkers::route('/'),
             'create' => Pages\CreateDataProker::route('/create'),
             'edit' => Pages\EditDataProker::route('/{record}/edit'),
+            'view' => Pages\ViewDataProker::route('/{record}'),
         ];
     }
 

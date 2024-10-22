@@ -25,4 +25,12 @@ class DataProker extends Model
     function implementation() {
         return $this->hasMany(DataImplementation::class, 'proker_id', 'id');
     }
+
+    function get_is_acc() {
+        if (DataProker::where('is_acc','1')) {
+            return false;
+        }else{
+            return true;
+        }
+    }
 }

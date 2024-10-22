@@ -55,7 +55,8 @@ class ImplementationRelationManager extends RelationManager
             ->recordTitleAttribute('name')
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label('Implementasi'),
-                TextColumn::make('target')->label('Target'),
+                TextColumn::make('qualitative')->label('Target Kualitatif'),
+                TextColumn::make('quantitative')->label('Target Kuantitatif'),
                 TextColumn::make('timeline')->badge()->label('Bulan'),
                 TextColumn::make('budget')->money('IDR')->label('Anggaran'),
                 TextColumn::make('budget_source')->badge()->label('Sumber Dana'),

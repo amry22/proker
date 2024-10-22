@@ -12,14 +12,14 @@ function filterRole() {
     $where = array();
 
         
-    if ($userRoleId == 2) {
+    if ($userRoleId == 3) {
         $where = [
             ['division_id', $userDivisionId],
             ['department_id', null]
         ];
     }
     
-    if ($userRoleId == 3) {
+    if ($userRoleId == 4) {
         $where = [
             ['department_id', $userDepartmentId]
         ];
