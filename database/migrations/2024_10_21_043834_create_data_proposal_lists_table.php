@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('data_proposal_id')->constrained('data_proposals')->cascadeOnDelete();
             $table->string('name');
-            $table->integer('budget_plan');
-            $table->integer('budget_acc');
+            $table->string('budget_plan');
+            $table->string('budget_acc')->nullable();
             $table->foreignId('division_id')->constrained('data_divisions')->cascadeOnDelete();
             $table->foreignId('department_id')->nullable()->constrained('data_departments')->cascadeOnDelete();
             $table->timestamps();

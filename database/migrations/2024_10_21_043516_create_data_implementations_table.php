@@ -17,13 +17,14 @@ return new class extends Migration
             $table->string('qualitative');
             $table->string('quantitative');
             $table->string('timeline');
-            $table->integer('budget');
+            $table->string('budget');
             $table->string('budget_source');
             $table->foreignId('proker_id')->constrained('data_prokers')->cascadeOnDelete();
             $table->foreignId('division_id')->constrained('data_divisions')->cascadeOnDelete();
             $table->foreignId('department_id')->nullable()->constrained('data_departments')->cascadeOnDelete();
-            $table->boolean('is_acc')->nullable();
-            $table->boolean('is_budget_acc')->nullable();
+            $table->integer('is_acc')->nullable();
+            $table->string('budget_acc')->nullable();
+            $table->integer('is_budget_acc')->nullable();
             $table->string('note')->nullable();
             $table->timestamps();
         });

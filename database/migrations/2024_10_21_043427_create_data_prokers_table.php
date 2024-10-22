@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('year');
             $table->foreignId('division_id')->constrained('data_divisions')->cascadeOnDelete();
             $table->foreignId('department_id')->nullable()->constrained('data_departments')->cascadeOnDelete();
-            $table->boolean('is_acc')->nullable();
+            $table->integer('is_acc')->nullable();
             $table->timestamps();
         });
     }

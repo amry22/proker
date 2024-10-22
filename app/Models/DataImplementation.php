@@ -23,6 +23,7 @@ class DataImplementation extends Model
         'division_id',
         'department_id',
         'is_acc',
+        'budget_acc',
         'is_budget_acc',
         'note',
     ];

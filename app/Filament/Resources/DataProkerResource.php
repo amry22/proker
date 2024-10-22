@@ -51,6 +51,7 @@ class DataProkerResource extends Resource
                             'xl' => 3,
                             '2xl' => 4,
                     ]),
+                    
                     TextInput::make('division_edit')->label('Bidang')->placeholder(fn (Model $record): string => $record->division->name)->readOnly()->hidden(fn (string $operation): bool => $operation === 'create'),
                     TextInput::make('department_edit')->label('Departemen')->placeholder(fn (Model $record): string => $record->department->name)->readOnly()->hidden(fn (string $operation): bool => $operation === 'create'),
                     TextInput::make('division')->label('Bidang')->placeholder(Auth::user()->division->name)->readOnly()->hidden(fn (string $operation): bool => $operation === 'edit'),
