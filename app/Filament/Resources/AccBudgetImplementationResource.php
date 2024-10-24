@@ -14,6 +14,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -46,7 +47,9 @@ class AccBudgetImplementationResource extends Resource
                 ->schema(([
                     
                     TextInput::make('division_edit')->label('Bidang')->placeholder(fn (Model $record): string => $record->proker->division->name)->readOnly(),
-                    TextInput::make('department_edit')->label('Departemen')->placeholder(fn (Model $record): string => $record->proker->department->name)->readOnly(),
+                    TextInput::make('department_edit')->label('Departemen')->visible(fn (Model $record): string => $record->proker->department_id != null)->placeholder(fn (Model $record): string => $record->proker->department->name)->readOnly(),
+                    Textarea::make('proker')->label('Program Kerja')
+                        ->maxLength(255)->columnSpan('full')->readOnly()->placeholder(fn (Model $record): string => $record->proker->name),
                     Textarea::make('name')->label('Implementasi')
                         ->required()
                         ->maxLength(255)->columnSpan('full')->readOnly(),
@@ -63,7 +66,7 @@ class AccBudgetImplementationResource extends Resource
                     TextInput::make('budget')->label('Anggaran')->numeric()->required()->readOnly(),
                     TextInput::make('budget_acc')->label('Acc Anggaran')->numeric()->required(),
                     Textarea::make('note')->label('Catatan'),
-                    Textarea::make('is_budget_acc')->value('sasas')
+                    Toggle::make('is_budget_acc')->required()->label('Acc Anggaran')->inline(false)
                     
                 ]))->columns(2)
 

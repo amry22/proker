@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\AccBudgetImplementationResource\Pages;
 
 use App\Filament\Resources\AccBudgetImplementationResource;
+use App\Filament\Resources\AccBudgetImplementationResource\Widgets\AccBudget;
+use App\Filament\Widgets\StatsOverview;
 use Filament\Actions;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
@@ -14,7 +16,14 @@ class ListAccBudgetImplementations extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            // Actions\CreateAction::make(),
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            AccBudget::class
         ];
     }
 

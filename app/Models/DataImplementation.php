@@ -10,6 +10,7 @@ class DataImplementation extends Model
     protected $casts = [
         'timeline' => 'array',
         'budget_source' => 'array',
+        'is_budget_acc' => 'boolean',
     ];
 
     protected $fillable = [
