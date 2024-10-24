@@ -53,9 +53,9 @@ class DataProkerResource extends Resource
                     ]),
                     
                     TextInput::make('division_edit')->label('Bidang')->placeholder(fn (Model $record): string => $record->division->name)->readOnly()->hidden(fn (string $operation): bool => $operation === 'create'),
-                    TextInput::make('department_edit')->label('Departemen')->placeholder(fn (Model $record): string => $record->department->name)->readOnly()->hidden(fn (string $operation): bool => $operation === 'create'),
-                    TextInput::make('division')->label('Bidang')->placeholder(Auth::user()->division->name)->readOnly()->hidden(fn (string $operation): bool => $operation === 'edit'),
-                    TextInput::make('department')->label('Departemen')->visible(Auth::user()->department_id != null)->placeholder($departmenName)->readOnly()->hidden(fn (string $operation): bool => $operation === 'edit'),
+                    TextInput::make('department_edit')->label('Departemen')->visible(Auth::user()->department_id != null)->placeholder(fn (Model $record): string => $record->department->name)->readOnly()->hidden(fn (string $operation): bool => $operation === 'create'),
+                    TextInput::make('division')->label('Bidang')->placeholder(Auth::user()->division->name)->readOnly()->hidden(fn (string $operation): bool => $operation === 'view' || $operation === 'edit'),
+                    TextInput::make('department')->label('Departemen')->visible(Auth::user()->department_id != null)->placeholder($departmenName)->readOnly()->hidden(fn (string $operation): bool => $operation === 'edit' || $operation === 'view'),
                     // TextInput::make('departement')->label('Departemen')->default(Auth::user()->division->name)->readOnly()->visible(Auth::user()->department_id != null),
                     Select::make('year')
                         ->native(false)

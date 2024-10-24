@@ -23,12 +23,20 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class AccBudgetImplementationResource extends Resource
 {
     protected static ?string $model = DataImplementation::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Acc Proker';
+    protected static ?string $navigationLabel = 'Acc Anggaran';
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return Auth::user()->role_id == 1;
+    }
 
     public static function form(Form $form): Form
     {
@@ -55,6 +63,7 @@ class AccBudgetImplementationResource extends Resource
                     TextInput::make('budget')->label('Anggaran')->numeric()->required()->readOnly(),
                     TextInput::make('budget_acc')->label('Acc Anggaran')->numeric()->required(),
                     Textarea::make('note')->label('Catatan'),
+                    Textarea::make('is_budget_acc')->value('sasas')
                     
                 ]))->columns(2)
 
@@ -119,5 +128,7 @@ class AccBudgetImplementationResource extends Resource
 
         return parent::getEloquentQuery()->whereRelation('proker', 'is_acc', 1);
     }
+
+    
 
 }

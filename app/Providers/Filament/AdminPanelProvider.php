@@ -5,7 +5,11 @@ namespace App\Providers\Filament;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationBuilder;
+use Filament\Navigation\NavigationItem;
 use Filament\Pages;
+use Filament\Pages\Dashboard;
+use Filament\Pages\Page;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -23,6 +27,10 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+
+        
+
+
             ->default()
             ->id('admin')
             ->path('admin')
@@ -44,8 +52,7 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
                 // App\Filament\Widgets\TimelineChart::class,
-                Widgets\AccountWidget::class,
-                // Widgets\FilamentInfoWidget::class,
+           
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -61,6 +68,9 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
+            
             ->viteTheme('resources/css/filament/admin/theme.css');
     }
+
+
 }
