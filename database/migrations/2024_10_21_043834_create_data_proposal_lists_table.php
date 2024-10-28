@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('data_proposal_lists', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('proker_id')->constrained('data_prokers')->cascadeOnDelete();
+            $table->foreignId('implementation_id')->constrained('data_implementations')->cascadeOnDelete();
             $table->foreignId('data_proposal_id')->constrained('data_proposals')->cascadeOnDelete();
+            $table->string('timeline');
             $table->string('name');
             $table->string('budget_plan');
             $table->string('budget_acc')->nullable();

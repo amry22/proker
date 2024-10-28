@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('data_proposals', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('proker_id')->constrained('data_prokers')->cascadeOnDelete();
             $table->foreignId('implementation_id')->constrained('data_implementations')->cascadeOnDelete();
-            $table->foreignId('timeline_id')->constrained('item_timelines')->cascadeOnDelete();
+            $table->string('timeline');
             $table->foreignId('division_id')->constrained('data_divisions')->cascadeOnDelete();
             $table->foreignId('department_id')->nullable()->constrained('data_departments')->cascadeOnDelete();
-            $table->boolean('division_acc');
-            $table->boolean('financial_manager_acc');
+            $table->integer('division_acc')->nullable();
+            $table->integer('financial_manager_acc')->nullable();
             $table->timestamps();
         });
     }

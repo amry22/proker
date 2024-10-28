@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('data_prokers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->text('name');
             $table->integer('year');
             $table->foreignId('division_id')->constrained('data_divisions')->cascadeOnDelete();
             $table->foreignId('department_id')->nullable()->constrained('data_departments')->cascadeOnDelete();

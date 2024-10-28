@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('data_implementations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('qualitative');
-            $table->string('quantitative');
-            $table->string('timeline');
+            $table->text('name');
+            $table->text('qualitative');
+            $table->text('quantitative');
+            $table->text('timeline');
             $table->string('budget');
             $table->string('budget_source');
             $table->foreignId('proker_id')->constrained('data_prokers')->cascadeOnDelete();
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->integer('is_acc')->nullable();
             $table->string('budget_acc')->nullable();
             $table->integer('is_budget_acc')->nullable();
-            $table->string('note')->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }

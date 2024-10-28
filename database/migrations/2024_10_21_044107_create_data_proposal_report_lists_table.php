@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('data_proposal_report_lists', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('proker_id')->constrained('data_prokers')->cascadeOnDelete();
+            $table->foreignId('implementation_id')->constrained('data_implementations')->cascadeOnDelete();
+            $table->string('timeline');
             $table->foreignId('proposal_report_id')->constrained('data_proposal_reports')->cascadeOnDelete();
             $table->string('date');
             $table->string('name');

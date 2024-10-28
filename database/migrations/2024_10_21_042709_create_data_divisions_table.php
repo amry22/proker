@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('data_divisions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('name_as');
             $table->timestamps();
         });
     }

@@ -8,7 +8,7 @@ class DataImplementationReport extends Model
 {
     protected $fillable = [
         'implementation_id',
-        'timeline_id',
+        'timeline',
         'target_id',
         'target_list_id',
         'status',

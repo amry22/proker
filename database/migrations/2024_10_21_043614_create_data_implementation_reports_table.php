@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('data_implementation_reports', function (Blueprint $table) {
             $table->id();
             $table->foreignId('implementation_id')->constrained('data_implementations')->cascadeOnDelete();
-            $table->foreignId('timeline_id')->constrained('data_implementations')->cascadeOnDelete();
+            $table->string('timeline');
             $table->foreignId('target_id')->constrained('item_targets')->cascadeOnDelete();
             $table->foreignId('target_list_id')->constrained('item_target_lists')->cascadeOnDelete();
             $table->string('status');
-            $table->string('description');
-            $table->string('follow_up');
+            $table->text('description');
+            $table->text('follow_up');
             $table->foreignId('division_id')->constrained('data_divisions')->cascadeOnDelete();
             $table->foreignId('department_id')->nullable()->constrained('data_departments')->cascadeOnDelete();
             $table->timestamps();

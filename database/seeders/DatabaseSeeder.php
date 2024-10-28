@@ -49,22 +49,28 @@ class DatabaseSeeder extends Seeder
 
         DataDivision::insert([
             [
-                'name' => 'Bidang Tarbiyah'
+                'name' => 'Bidang Tarbiyah',
+                'name_as' => 'Tarbiyah'
             ],
             [
-                'name' => 'Bidang Dakwah dan Pelayanan Ummat'
+                'name' => 'Bidang Dakwah dan Pelayanan Ummat',
+                'name_as' => 'Yanmat',
             ],
             [
-                'name' => 'Bidang Pembinaan dan Pengembangan Organisasi'
+                'name' => 'Bidang Pembinaan dan Pengembangan Organisasi',
+                'name_as' => 'PPO',
             ],
             [
-                'name' => 'Bidang Perekonomian'
+                'name' => 'Bidang Perekonomian',
+                'name_as' => 'Perekonomian',
             ],
             [
-                'name' => 'Kesekretariatan'
+                'name' => 'Kesekretariatan',
+                'name_as' => 'Kesekretariatan',
             ],
             [
-                'name' => 'Kebendaharaan'
+                'name' => 'Kebendaharaan',
+                'name_as' => 'Kebendaharaan',
             ]
         ]);
 
@@ -207,9 +213,7 @@ class DatabaseSeeder extends Seeder
 
 
         ItemTimeline::insert([
-            [
-                'name' => 'Isidentil'
-            ],
+           
             [
                 'name' => 'Januari'
             ],
@@ -245,6 +249,9 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Desember'
+            ], 
+            [
+                'name' => 'Isidentil'
             ],
         ]);
 
@@ -347,7 +354,16 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Badan dan Amal Usaha'
             ],
             [
+                'name' => 'KI/KU'
+            ],
+            [
+                'name' => 'Wisma'
+            ],
+            [
                 'name' => 'Sponsor'
+            ],
+            [
+                'name' => 'Lainnya'
             ],
         ]);
     }

@@ -9,6 +9,7 @@ use App\Models\DataImplementation;
 use App\Models\ItemBudgetSource;
 use App\Models\ItemTimeline;
 use Filament\Forms;
+use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -16,6 +17,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -31,6 +33,7 @@ class AccBudgetImplementationResource extends Resource
     protected static ?string $model = DataImplementation::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?int $navigationSort = 2;
     protected static ?string $navigationGroup = 'Acc Proker';
     protected static ?string $navigationLabel = 'Acc Anggaran';
 
@@ -63,8 +66,21 @@ class AccBudgetImplementationResource extends Resource
                         ->options(fn (): array => ItemBudgetSource::pluck('name', 'name')->toArray())
                         ->searchable()
                         ->multiple()->required()->native(false)->placeholder('')->disabled(),
-                    TextInput::make('budget')->label('Anggaran')->numeric()->required()->readOnly(),
-                    TextInput::make('budget_acc')->label('Acc Anggaran')->numeric()->required(),
+                    TextInput::make('budgeta')->label('Anggaran')->numeric()->required()->readOnly()
+                        ->prefix('Rp')
+                        ->default(fn (Model $record): string => $record->budget ? number_format($record->budget, 0, ',', '.') : '0')
+                        ->placeholder(fn (Model $record): string => $record->budget ? number_format($record->budget, 0, ',', '.') : '0')
+                        ->suffixAction(
+                            Action::make('Copybudget')->label('Copy Anggaran')
+                                ->icon('heroicon-m-clipboard')
+                                ->requiresConfirmation()
+                                ->action(function (Set $set, $state) {
+                                    $set('budget_acc', fn (Model $record): string => $record->budget);
+                                })
+                        ),
+                    TextInput::make('budget_acc')
+                    ->prefix('Rp')
+                    ->label('Acc Anggaran')->numeric()->required(),
                     Textarea::make('note')->label('Catatan'),
                     Toggle::make('is_budget_acc')->required()->label('Acc Anggaran')->inline(false)
                     
@@ -77,9 +93,9 @@ class AccBudgetImplementationResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('proker.division.name')->label('Bidang'),
-                Tables\Columns\TextColumn::make('proker.department.name')->label('Departemen'),
-                Tables\Columns\TextColumn::make('name')->label('Implementasi'),
+                Tables\Columns\TextColumn::make('proker.division.name')->label('Bidang')->badge(),
+                Tables\Columns\TextColumn::make('proker.department.name')->label('Departemen')->badge(),
+                Tables\Columns\TextColumn::make('name')->label('Implementasi')->searchable(),
                 TextColumn::make('qualitative')->label('Target Kualitatif'),
                 TextColumn::make('quantitative')->label('Target Kuantitatif'),
                 TextColumn::make('timeline')->badge()->label('Bulan'),
@@ -96,7 +112,7 @@ class AccBudgetImplementationResource extends Resource
 
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

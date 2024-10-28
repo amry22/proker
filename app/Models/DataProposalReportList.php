@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class DataProposalReportList extends Model
 {
     protected $fillable = [
+        'proker_id',
+        'implementation_id',
+        'timeline',
         'proposal_report_id',
         'date',
         'name',
@@ -14,5 +17,6 @@ class DataProposalReportList extends Model
         'file',
         'division_id',
         'department_id',
+        'is_acc'
     ];
 }

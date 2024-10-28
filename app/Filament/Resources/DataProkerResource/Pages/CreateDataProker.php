@@ -22,4 +22,10 @@ class CreateDataProker extends CreateRecord
             'year' => $data['year'],
         ]);
     }
+
+    protected function getRedirectUrl(): string
+    {
+        // Redirect ke halaman edit setelah create
+        return $this->getResource()::getUrl('edit', ['record' => $this->record->getKey()]);
+    }
 }
